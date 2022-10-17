@@ -14,6 +14,8 @@ import conexao.ConexaoJdbc;
 import conexao.DbException;
 import model.Contato;
 import model.Grupos;
+import model.Telefone;
+import model.Tipos;
 import model.DAO.ContatoDAO;
 
 public class ContatoDAOJDBC implements ContatoDAO {
@@ -25,21 +27,23 @@ public class ContatoDAOJDBC implements ContatoDAO {
 	}
 	
 	@Override
-	public void insert(Contato obj) {
+	public void insert(Contato obj, List<Telefone> objLista) {
+		
 		PreparedStatement st = null;
 		PreparedStatement st2 = null;
+		PreparedStatement st3 = null;
+		
 		String sqlContato = "INSERT INTO contato "
 				+ "(nome, endereco, email, datadenascimento) "
 				+ "VALUES(?, ?, ?, ?)";
+		
 		try {
 			st = conn.prepareStatement(sqlContato,Statement.RETURN_GENERATED_KEYS);
 			st.setString(1, obj.getNome());
 			st.setString(2, obj.getEndereco());
 			st.setString(3, obj.getEmail());
-			st.setDate(4, new java.sql.Date(obj.getDataNascimento().getTime()));
-			
+			st.setDate(4, new java.sql.Date(obj.getDataNascimento().getTime()));			
 			int rowsAffected = st.executeUpdate();
-			
 			if (rowsAffected > 0) {
 				ResultSet rs = st.getGeneratedKeys();
 				if (rs.next()) {
@@ -59,6 +63,15 @@ public class ContatoDAOJDBC implements ContatoDAO {
 			st2.setLong(1, obj.getCodigo());
 			st2.setLong(2, obj.getGrupo().getCodigo());
 			st2.executeUpdate();
+			
+			String sqlTelefone = "INSERT INTO telefone(telefone, codigo_usuario, codigo_tipo)values(?, ?, ?); ";
+			for(int x = 0; x < objLista.size(); x ++) {
+				st3 = conn.prepareStatement(sqlTelefone);
+				st3.setString(1, objLista.get(x).getTelefone());
+				st3.setLong(2, obj.getCodigo());
+				st3.setLong(3, objLista.get(x).getTipo().getCodigo());
+				st3.executeUpdate();
+			}
 		}
 		catch (SQLException e) {
 			throw new DbException(e.getMessage());
@@ -66,6 +79,7 @@ public class ContatoDAOJDBC implements ContatoDAO {
 		finally {
 			ConexaoJdbc.closeStatement(st);
 			ConexaoJdbc.closeStatement(st2);
+			ConexaoJdbc.closeStatement(st3);
 		}
 	}
 
@@ -229,6 +243,73 @@ public class ContatoDAOJDBC implements ContatoDAO {
 				}
 				
 				Contato obj = instantiateContato(rs, g);
+				list.add(obj);
+			}
+			return list;
+		}
+		catch (SQLException e) {
+			throw new DbException(e.getMessage());
+		}
+		finally {
+			ConexaoJdbc.closeStatement(st);
+			ConexaoJdbc.closeResultSet(rs);
+		}
+	}
+
+	@Override
+	public List<Telefone> ListarFonesContatos(Long codigoContato) {
+
+		PreparedStatement stmt;
+		try {
+			stmt = conn.prepareStatement("select * "
+					+ " from telefone f "
+					+ " inner join tipo t on f.codigo_tipo = t.codigo"
+					+ " where codigo_usuario = ? ");
+			stmt.setLong(1, codigoContato);
+			ResultSet rs = stmt.executeQuery();
+			
+			List<Telefone> list = new ArrayList<>();
+			
+			while(rs.next()) {
+				Telefone fone = new Telefone();
+				fone.setCodigo(rs.getLong("codigo"));
+				fone.setTelefone(rs.getString("telefone"));
+				Tipos tipo = new Tipos();
+				tipo.setCodigo(rs.getLong("codigo_tipo"));
+				tipo.setDescricao(rs.getString("descricao"));
+				fone.setTipo(tipo);
+				
+				list.add(fone);
+			}
+			return list;
+			
+		} catch (SQLException e) {
+			throw new DbException(e.getMessage());
+		}
+		
+	}
+	
+	@Override
+	public List<Contato> findByNome(String nome) {
+		PreparedStatement st = null;
+		ResultSet rs = null;
+		try {
+			String sql = "select * "
+					+ " from contato c "
+					+ " where c.nome LIKE '%"+nome+"%' ";
+			st = conn.prepareStatement(sql);
+			List<Contato> list = new ArrayList<>();
+			
+			
+			//st.setString(1, nome);
+			rs = st.executeQuery();
+			while (rs.next()) {
+				Contato obj = new Contato();
+				obj.setCodigo(rs.getLong("codigo"));
+				obj.setNome(rs.getString("nome"));
+				obj.setEndereco(rs.getString("endereco"));
+				obj.setEmail(rs.getString("email"));
+				obj.setDataNascimento(new java.util.Date(rs.getTimestamp("datadenascimento").getTime()));
 				list.add(obj);
 			}
 			return list;

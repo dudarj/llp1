@@ -88,7 +88,7 @@ public class Utils {
 					return "";
 				}
 			}
-
+			
 			@Override
 			public LocalDate fromString(String string) {
 				if (string != null && !string.isEmpty()) {
@@ -98,5 +98,5 @@ public class Utils {
 				}
 			}
 		});
-	}
+	} 
 }

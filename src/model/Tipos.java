@@ -58,6 +58,6 @@ public class Tipos implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Tipos [codigo=" + codigo + ", descricao=" + descricao + "]";
+		return descricao;
 	}
 }

@@ -160,11 +160,11 @@ public class ListaGruposController implements Initializable, DataChangeListener 
 	}
 
 	private void removeEntity(Grupos obj) {
-		Optional<ButtonType> result = Alerts.showConfirmation("Confirmation", "Você tem certeza que gostaria de deletar?");
+		Optional<ButtonType> result = Alerts.showConfirmation("Confimação", "Deseja realmente deletar?");
 
 		if (result.get() == ButtonType.OK) {
 			if (service == null) {
-				throw new IllegalStateException("Service was null");
+				throw new IllegalStateException("Serviço Nulo");
 			}
 			try {
 				service.remove(obj);

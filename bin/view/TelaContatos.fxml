@@ -6,14 +6,16 @@
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="389.0" prefWidth="580.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.ContatoController">
+<AnchorPane prefHeight="513.0" prefWidth="763.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.ContatoController">
    <children>
-      <AnchorPane focusTraversable="true" prefHeight="417.0" prefWidth="581.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <AnchorPane focusTraversable="true" layoutY="122.0" prefHeight="533.0" prefWidth="846.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="-83.0" AnchorPane.topAnchor="0.0">
          <children>
             <Label alignment="CENTER" contentDisplay="CENTER" layoutY="92.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="33.0" prefWidth="82.0" text="Código:" />
             <TextField fx:id="codigo" accessibleRole="PARENT" editable="false" layoutX="79.0" layoutY="96.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="97.0" promptText="txtCodigo" />
@@ -29,7 +31,7 @@
                   <Insets />
                </opaqueInsets>
             </DatePicker>
-            <HBox alignment="CENTER" layoutY="-4.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="62.0" prefWidth="584.0" style="-fx-background-color: #d3d3d3;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <HBox alignment="CENTER" layoutY="-4.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="62.0" prefWidth="763.0" style="-fx-background-color: #d3d3d3;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="83.0" AnchorPane.topAnchor="0.0">
                <children>
                   <Label alignment="TOP_LEFT" text="Cadastro de Contatos">
                      <font>
@@ -37,7 +39,7 @@
                      </font>
                   </Label>
                </children></HBox>
-            <HBox alignment="CENTER" layoutX="-4.0" layoutY="303.0" prefHeight="114.0" prefWidth="591.0" AnchorPane.leftAnchor="-4.0" AnchorPane.rightAnchor="-3.0" AnchorPane.topAnchor="303.0">
+            <HBox alignment="CENTER" layoutY="383.0" prefHeight="62.0" prefWidth="684.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="162.0" AnchorPane.topAnchor="383.0">
                <children>
                   <Button fx:id="btnSalva" focusTraversable="false" mnemonicParsing="false" onAction="#onbtnSalvaAction" prefHeight="25.0" prefWidth="149.0" text="Salvar">
                      <cursor>
@@ -54,8 +56,36 @@
                   </Button>
                </children>
             </HBox>
-            <Label alignment="CENTER" contentDisplay="CENTER" layoutX="48.0" layoutY="260.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="33.0" prefWidth="121.0" text="Grupo:" />
-            <ComboBox fx:id="comboBoxGrupo" layoutX="148.0" layoutY="264.0" prefWidth="150.0" />
+            <Label alignment="CENTER" contentDisplay="CENTER" layoutX="350.0" layoutY="227.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="33.0" prefWidth="121.0" text="Grupo:" />
+            <ComboBox fx:id="comboBoxGrupo" layoutX="441.0" layoutY="231.0" prefWidth="150.0">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor></ComboBox>
+            <Label alignment="CENTER" contentDisplay="CENTER" layoutX="48.0" layoutY="273.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="33.0" prefWidth="121.0" text="Telefones:" />
+            <Button fx:id="btnAdcionarTelefone" layoutX="308.0" layoutY="277.0" mnemonicParsing="false" onAction="#onbtnbtnAdcionarTelefoneAction" prefHeight="25.0" prefWidth="68.0" text="Add">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Button>
+            <TextField fx:id="telefone" layoutX="149.0" layoutY="277.0" />
+            <TableView fx:id="tbvTelefone" layoutX="-2.0" layoutY="445.0" onMouseClicked="#SelecionarTelefone" prefHeight="210.0" prefWidth="846.0" AnchorPane.leftAnchor="-2.0" AnchorPane.rightAnchor="2.0" AnchorPane.topAnchor="445.0">
+              <columns>
+                <TableColumn fx:id="tbcTelefone" prefWidth="75.0" text="Telefone" />
+                <TableColumn fx:id="tbcTipo" prefWidth="75.0" text="Tipo" />
+                  <TableColumn fx:id="tbcCodigo" prefWidth="138.0" text="Código do Telefone" />
+              </columns>
+            </TableView>
+            <Button fx:id="btnDeletarTelefone" layoutX="387.0" layoutY="277.0" mnemonicParsing="false" onAction="#onbtnbtnDeletarTelefoneAction" prefHeight="25.0" prefWidth="68.0" text="Del">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Button>
+            <Label alignment="CENTER" contentDisplay="CENTER" layoutX="55.0" layoutY="311.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="33.0" prefWidth="121.0" text="Tipo:" />
+            <ComboBox fx:id="comboboxTipo" layoutX="148.0" layoutY="315.0" prefWidth="150.0">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </ComboBox>
          </children>
       </AnchorPane>
    </children>

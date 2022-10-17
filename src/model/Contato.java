@@ -19,6 +19,7 @@ public class Contato implements Serializable {
 	
 	private List<Telefone> telefone = new ArrayList<>();
 	private Grupos grupo;
+	private Tipos tipo;
 
 	public Contato() {
 		
@@ -88,6 +89,13 @@ public class Contato implements Serializable {
 		this.grupo = grupo;
 	}
 	
+	public Tipos getTipo() {
+		return tipo;
+	}
+
+	public void setTipo(Tipos tipo) {
+		this.tipo = tipo;
+	}
 	
 
 	@Override

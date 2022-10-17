@@ -17,7 +17,6 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.VBox;
 import model.servicos.ContatoServico;
 import model.servicos.GrupoServico;
-import model.servicos.TelefoneServico;
 import model.servicos.TiposServico;
 import view.util.Alerts;
 
@@ -25,16 +24,17 @@ public class MainViewController implements Initializable {
 
 	@FXML
 	private MenuItem mnuContato;
-
-	@FXML
-	private MenuItem mnuTelefone;
-
+	
 	@FXML
 	private MenuItem mnuTipo;
 	
 	@FXML
 	private MenuItem mnuGrupo;
-
+	
+	@FXML
+	private MenuItem menuItemSobre;
+	
+	
 	@FXML
 	public void onMenuItemContatoAction() {
 		
@@ -55,26 +55,7 @@ public class MainViewController implements Initializable {
 		
 		  loadView("/view/ListaTipos.fxml", (ListaTiposController controller) -> {
 		  controller.setTiposServico(new TiposServico());
-		  controller.AlterarTabelaVisualizacao(); }); 
-		
-		
-	}
-
-	@FXML
-	public void onMenuItemTelefoneAction() {
-		
-		loadView("/view/ListaTelefone.fxml", x -> {
-		});
-		
-		  loadView("/view/ListaTelefone.fxml", (ListaTelefoneController controller) -> {
-		  controller.setTelefoneServico(new TelefoneServico());
-		  controller.AlterarTabelaVisualizacao(); }); 
-		  
-		/*
-		 * loadView("/gui/DepartmentList.fxml", (DepartmentListController controller) ->
-		 * { controller.setDepartmentService(new DepartmentService());
-		 * controller.updateTableView(); });
-		 */
+		  controller.AlterarTabelaVisualizacao(); }); 	
 	}
 	
 	@FXML 

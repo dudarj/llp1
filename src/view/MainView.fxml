@@ -17,7 +17,6 @@
                         <Menu mnemonicParsing="false" text="Cadastro">
                           <items>
                           <MenuItem fx:id="mnuContato" mnemonicParsing="false" onAction="#onMenuItemContatoAction" text="Contatos" />
-                              <MenuItem fx:id="mnuTelefone" mnemonicParsing="false" onAction="#onMenuItemTelefoneAction" text="Telefones" />
                               <MenuItem fx:id="mnuTipo" mnemonicParsing="false" onAction="#onMenuItemTipoAction" text="Rótulos" />
                               <MenuItem fx:id="mnuGrupo" mnemonicParsing="false" onAction="#onMenuItemGruposAction" text="Grupos" />
                           </items>

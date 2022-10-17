@@ -24,6 +24,7 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.Pane;
 import javafx.stage.Modality;
@@ -31,6 +32,7 @@ import javafx.stage.Stage;
 import model.Contato;
 import model.servicos.ContatoServico;
 import model.servicos.GrupoServico;
+import model.servicos.TiposServico;
 import view.util.Alerts;
 import view.util.Utils;
 
@@ -56,9 +58,34 @@ public class ListaContatosController implements Initializable, DataChangeListene
 	private TableColumn<Contato, Contato> tbcREMOVE;
 	@FXML
 	private Button btnNovo;
-
+	@FXML
+	private TextField tbcPesquisar;
+	@FXML
+	private Button btnPesquisar;
+	
+	
+	
 	private ObservableList<Contato> obsList;
-
+	
+	
+	@FXML
+	public void onbtnPesquisarAction(ActionEvent event) {
+		List<Contato> objList;
+		
+		if(tbcPesquisar.getText() == " " ) {
+			objList = service.findAll();
+		}
+		else {
+			objList = service.findByNome(tbcPesquisar.getText());
+			
+		}
+		
+		ObservableList<Contato> list;
+		list = FXCollections.observableArrayList(objList);
+		tbvContato.setItems(list);
+	}
+	
+	
 	@FXML
 	public void onbtnNovoAction(ActionEvent event) {
 		Stage parentStage = Utils.currentStage(event);
@@ -97,6 +124,7 @@ public class ListaContatosController implements Initializable, DataChangeListene
 		initEditButtons();
 		initRemoveButtons();
 	}
+	
 
 	private void createDialogForm(Contato obj, String absoluteName, Stage parentStage) {
 		try {
@@ -105,8 +133,9 @@ public class ListaContatosController implements Initializable, DataChangeListene
 
 			ContatoController controller = loader.getController();
 			controller.setContato(obj);
-			controller.setServices(new ContatoServico(), new GrupoServico());
-			controller.loadAssociatedObjects();
+			controller.setServices(new ContatoServico(), new GrupoServico(), new TiposServico());
+			controller.loadAssociatedObjectsGrupo();
+			controller.loadAssociatedObjectsTipo();
 			controller.subscribeDataChangeListener(this);
 			controller.updateFormData();
 
@@ -146,6 +175,7 @@ public class ListaContatosController implements Initializable, DataChangeListene
 			}
 		});
 	}
+	
 
 	private void initRemoveButtons() {
 		tbcREMOVE.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue()));

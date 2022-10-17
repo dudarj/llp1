@@ -25,12 +25,14 @@ public class TelefoneDAOJDBC implements TelefoneDAO {
 	}
 
 	@Override
-	public void insert(Telefone obj) {
+	public void insert(Telefone obj, Long contato) {
 		PreparedStatement st = null;
 		try {
-			st = conn.prepareStatement("INSERT into telefone(telefone) "
-					+ "values(?)", Statement.RETURN_GENERATED_KEYS);
+			st = conn.prepareStatement("INSERT into telefone(telefone, codigo_usuario, codigo_tipo ) "
+					+ "values(?, ?, ?) ", Statement.RETURN_GENERATED_KEYS);
 			st.setString(1, obj.getTelefone());
+			st.setLong(2, contato);
+			st.setLong(3, obj.getTipo().getCodigo());
 	
 			int linhasAfetadas = st.executeUpdate();
 			if (linhasAfetadas > 0) {
@@ -59,9 +61,7 @@ public class TelefoneDAOJDBC implements TelefoneDAO {
 	public void update(Telefone obj) {
 		PreparedStatement st = null;
 		try {
-			st = conn.prepareStatement("UPDATE telefone set "
-					+ "telefone = ? "
-					+ "where codigo = ?");
+			st = conn.prepareStatement("UPDATE telefone " + "SET telefone = ? WHERE codigo = ? ");
 			
 			st.setString(1, obj.getTelefone());
 			st.setLong(2, obj.getCodigo());
@@ -81,7 +81,7 @@ public class TelefoneDAOJDBC implements TelefoneDAO {
 		PreparedStatement st = null;
 		try {
 			st = conn.prepareStatement("DELETE from telefone "
-					+ "where codigo = ?");
+					+ "where codigo = ?  ");
 			
 			st.setLong(1, id);
 			st.executeUpdate();

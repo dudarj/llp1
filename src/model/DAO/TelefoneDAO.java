@@ -6,7 +6,7 @@ import model.Telefone;
 
 public interface TelefoneDAO {
 
-	void insert(Telefone obj);
+	void insert(Telefone obj, Long codigoContato);
 	void update(Telefone obj);
 	void deleteById(Long id);
 	Telefone findById(Long id);

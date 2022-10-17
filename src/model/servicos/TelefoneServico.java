@@ -14,17 +14,20 @@ public class TelefoneServico {
 		return dao.ListarTelefones();
 	}
 	
-	public void salvar(Telefone obj) {
+	public void inserir(Telefone obj, Long contato) {
+		dao.insert(obj, contato);
+	}
+
+	public void salvar(Telefone obj, Long contato) {
 		if (obj.getCodigo() == null) {
-			dao.insert(obj);
-		}
-		else {
+			dao.insert(obj, contato);
+		} else {
 			dao.update(obj);
 		}
 	}
 	
-	public void remove(Telefone obj) {
-		dao.deleteById(obj.getCodigo());
+	public void remove(Long obj) {
+		dao.deleteById(obj);
 	}
 }
 
