@@ -159,9 +159,9 @@ public class ContatoController implements Initializable, DataChangeListener {
 
 		fone.setTelefone(telefone.getText());
 		fone.setTipo(tipocomponenteCombobox);
-		
-		telefoneServico.inserir(fone, entity.getCodigo());
-
+		if(codigo.getText() != "") {
+			telefoneServico.inserir(fone, entity.getCodigo());
+		}	
 		list.add(fone);
 		lista = FXCollections.observableArrayList(list);
 		tbvTelefone.setItems(lista);
