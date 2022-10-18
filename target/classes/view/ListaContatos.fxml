@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToolBar?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox prefHeight="383.0" prefWidth="856.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.ListaContatosController">
+   <children>
+      <Label prefHeight="27.0" prefWidth="489.0" text="Lista de Contatos">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+         <VBox.margin>
+            <Insets left="5.0" top="5.0" />
+         </VBox.margin>
+      </Label>
+      <ToolBar prefHeight="40.0" prefWidth="596.0">
+        <items>
+          <Button fx:id="btnNovo" focusTraversable="false" mnemonicParsing="false" onAction="#onbtnNovoAction" prefHeight="25.0" prefWidth="141.0" text="Novo">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor></Button>
+            <Label alignment="CENTER" contentDisplay="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="33.0" prefWidth="82.0" text="Pesquisar:" />
+            <TextField fx:id="tbcPesquisar" prefHeight="25.0" prefWidth="429.0" />
+            <Button fx:id="btnPesquisar" mnemonicParsing="false" onAction="#onbtnPesquisarAction" text="Pesquisar">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Button>
+        </items>
+      </ToolBar>
+      <TableView fx:id="tbvContato" focusTraversable="false" prefHeight="200.0" prefWidth="718.0">
+        <columns>
+          <TableColumn fx:id="tbcCodigo" prefWidth="54.0" text="Código" />
+          <TableColumn fx:id="tbcNome" prefWidth="96.0" text="Nome" />
+            <TableColumn fx:id="tbcEndereco" prefWidth="168.0" text="Endereço" />
+            <TableColumn fx:id="tbcEmail" prefWidth="158.0" text="E-mail" />
+            <TableColumn fx:id="tbcDataNascimento" prefWidth="107.0" text="Data de Nascimento" />
+            <TableColumn fx:id="tbcEDIT" prefWidth="89.0" />
+            <TableColumn fx:id="tbcREMOVE" prefWidth="89.0" />
+            <TableColumn minWidth="-Infinity" prefWidth="-1.0" />
+        </columns>
+      </TableView>
+   </children>
+</VBox>
